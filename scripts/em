@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+# Copyright 2021 Mauro Calderara
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above
+#    copyright notice, this list of conditions and the following
+#    disclaimer in the documentation and/or other materials provided
+#    with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+help() {
+    echo "emacs wrapper dispatching to daemonized emacs in background"
+    echo
+    echo "Syntax: em {--help|[file]}"
+    echo
+    exit
+}
+
+EMACS="$(command -v emacs)"
+EMACS_CLIENT="$(command -v emacsclient)"
+
+[[ "${1}" == "--help" ]] && help
+
+if [[ -z "${EMACS}" ]]; then
+    echo "ERROR: unable to find 'emacs' in \${PATH}"
+    exit 1
+elif [[ -z "${EMACS_CLIENT}" ]]; then
+    echo "ERROR: unable to find 'emacsclient' in \${PATH}"
+    exit 1
+fi
+
+# Ensure emacs daemon is up and running
+${EMACS_CLIENT} -e 0 >& /dev/null || ${EMACS} --daemon
+
+# Arguments to ${EMACS_CLIENT} change on a variety of conditions
+#
+# If we're not inside an emacs terminal already, create a new frame:
+[[ -n "${INSIDE_EMACS}" ]] || EXTRA_ARGS="-c"
+
+# If we're not used for commit messages, release the shell immediately
+[[ ${0##*/} == "emcommit" ]] || EXTRA_ARGS="${EXTRA_ARGS} -n"
+
+# emsp and emvsp create a new split or vsplit, respectively before opening
+# the file
+if [[ ${0##*/} == "emsp" ]]; then
+    ${EMACS_CLIENT} -e "(split-window-below-and-focus)"
+elif [[ ${0##*/} == "emvsp" ]]; then
+    ${EMACS_CLIENT} -e "(split-window-right-and-focus)"
+fi
+
+${EMACS_CLIENT} ${EXTRA_ARGS} ${@}
