@@ -10,7 +10,7 @@ Installation
 -------------
 
 The configuration assumes that the development branch of
-`spacemacs <https://github.com/syl20bnr/spacemacs`_ is checked out to
+`spacemacs <https://github.com/syl20bnr/spacemacs>`_ is checked out to
 ``~/.emacs.d/`` and that the Fira Code font is available.
 
 Following these instructions will get you started::
@@ -36,7 +36,7 @@ Following these instructions will get you started::
 
 There are some helper scripts in ``~/.emacs.d/private/mmc/scripts`` that I find
 useful. You might want to add that folder to your path (note that my
-`zsh config <https://github.com/MauroCalderara/zsh_config`_ does that already).
+`zsh config <https://github.com/MauroCalderara/zsh_config>`_ does that already).
 
 
 Updating ...
