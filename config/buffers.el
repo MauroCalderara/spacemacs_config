@@ -25,10 +25,7 @@
 ;; config/buffers.el - Settings related to managing buffers
 
 ;; Shortcut to allow renaming of buffers
-(spacemacs/set-leader-keys "b$"
-  (lambda () (interactive)
-    (rename-buffer))
-  "Rename buffer")
+(spacemacs/set-leader-keys "b$" 'rename-buffer "Rename buffer")
 
 ;; The spacemacs defaults don't feel intuitive to me:
 (spacemacs/set-leader-keys "bq"
@@ -43,13 +40,13 @@
 
 (spacemacs/set-leader-keys "bx"
   (lambda () (interactive)
-    (save-current-buffer)
+    (save-buffer)
     (kill-buffer (current-buffer)))
   "Save and kill buffer")
 
 (spacemacs/set-leader-keys "bX"
   (lambda () (interactive)
-    (save-current-buffer)
+    (save-buffer)
     (kill-buffer-and-window))
   "Save and kill buffer and close window")
 
