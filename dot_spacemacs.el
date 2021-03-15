@@ -42,7 +42,7 @@ This function should only modify configuration layer settings."
      c-c++
      dap
      emacs-lisp
-     ;; git
+     git
      helm
      lsp
      ;; markdown
@@ -61,7 +61,7 @@ This function should only modify configuration layer settings."
             shell-default-shell 'multi-term)
      ;; spell-checking
      ;; syntax-checking
-     ;; version-control
+     version-control
      theming
      treemacs
      (unicode-fonts :variables
@@ -84,7 +84,9 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(switch-window
-                                      eterm-256color)
+                                      eterm-256color
+                                      vdiff
+                                      vdiff-magit)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -554,6 +556,9 @@ before packages are loaded."
   (when (file-exists-p "~/.emacs.d/private/mmc/config/buffers.el")
     (load-file "~/.emacs.d/private/mmc/config/buffers.el"))
 
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/git.el")
+    (load-file "~/.emacs.d/private/mmc/config/git.el"))
+
   (when (file-exists-p "~/.emacs.d/private/mmc/config/searching.el")
     (load-file "~/.emacs.d/private/mmc/config/searching.el"))
 
@@ -584,6 +589,9 @@ before packages are loaded."
 
   (when (file-exists-p "~/.emacs.d/private/mmc/config/text-mode.el")
     (load-file "~/.emacs.d/private/mmc/config/text-mode.el"))
+
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/vdiff-mode.el")
+    (load-file "~/.emacs.d/private/mmc/config/vdiff-mode.el"))
 
   )
 
