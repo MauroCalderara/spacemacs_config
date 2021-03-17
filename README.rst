@@ -15,12 +15,12 @@ The configuration assumes that the development branch of
 
 Following these instructions will get you started::
 
-   # Optional: download and install a font supporting fancy symbols, e.g.
-   # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode
+   # Optional: download a font supporting fancy symbols from
+   # https://github.com/ryanoasis/nerd-fonts/releases/latest (or create one
+   # yourself).
    #
-   # To install the font for your user extract the archive to
-   # ~/.local/share/fonts, then run fc-cache -f -v and finally adjust the font
-   # in the terminal that you use to run zsh.
+   # To install a downloaded font for your user extract the archive to
+   # ~/.local/share/fonts, then run fc-cache -f -v.
    
    # Fetch spacemacs (note that 'develop' is the standard branch at this time so
    # the explicit checkout is not really necessary).
