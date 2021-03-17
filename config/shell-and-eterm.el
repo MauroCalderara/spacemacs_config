@@ -53,12 +53,12 @@
 
 (spacemacs/set-leader-keys "'"
   (lambda () (interactive) (custom/create-shell-split))
-  "open shell")
+  "open terminal")
 
 ;; We steal that one from spacemacs
 (spacemacs/set-leader-keys "\""
   (lambda () (interactive) (custom/create-shell-split-and-rename))
-  "open shell + rename")
+  "open terminal + rename")
 
 ;; Add a major mode keyboard shortcut (use ,r or SPC m r to create a new
 ;; terminal and immediately rename it)
@@ -72,7 +72,18 @@
 
 (spacemacs/set-leader-keys-for-major-mode 'term-mode "r"
   (lambda () (interactive) (custom/create-shell-and-rename))
-  "multi-term + rename")
+  "Create named terminal")
+
+;; Create a new terminal in the current window
+(spacemacs/set-leader-keys "."
+  (lambda () (interactive) (multi-term))
+  "Create terminal")
+
+;; Create a new terminal in the current window
+(spacemacs/set-leader-keys ">"
+  (lambda () (interactive) (multi-term))
+  "Create named terminal")
+
 
 ;; Requires eterm-256color in dotspacemacs-additional-packages
 ;;(setq 'eterm-256color-disable-bold t)
