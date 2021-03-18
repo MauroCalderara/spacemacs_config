@@ -58,7 +58,7 @@ This function should only modify configuration layer settings."
      rust
      (shell :variables
             shell-default-position 'right
-            shell-default-shell 'multi-term)
+            shell-default-shell 'vterm)
      ;; spell-checking
      ;; syntax-checking
      version-control
@@ -84,7 +84,6 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(switch-window
-                                      eterm-256color
                                       vdiff
                                       vdiff-magit)
 
@@ -562,8 +561,8 @@ before packages are loaded."
   (when (file-exists-p "~/.emacs.d/private/mmc/config/searching.el")
     (load-file "~/.emacs.d/private/mmc/config/searching.el"))
 
-  (when (file-exists-p "~/.emacs.d/private/mmc/config/shell-and-eterm.el")
-    (load-file "~/.emacs.d/private/mmc/config/shell-and-eterm.el"))
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/shell-and-term.el")
+    (load-file "~/.emacs.d/private/mmc/config/shell-and-term.el"))
 
   (when (file-exists-p "~/.emacs.d/private/mmc/config/theme-colors.el")
     (load-file "~/.emacs.d/private/mmc/config/theme-colors.el"))

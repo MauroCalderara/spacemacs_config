@@ -35,7 +35,7 @@
 ;;     ...
 ;;     (shell :variables
 ;;       shell-default-position 'right
-;;       shell-default-shell 'multi-term)
+;;       shell-default-shell 'vterm)
 ;;     ...
 ;;   )
 ;;
@@ -60,32 +60,21 @@
   (lambda () (interactive) (custom/create-shell-split-and-rename))
   "open terminal + rename")
 
-;; Add a major mode keyboard shortcut (use ,r or SPC m r to create a new
-;; terminal and immediately rename it)
 (defun custom/create-shell-and-rename ()
-  "Create a new multi-term instance with a given name"
+  "Create a new term instance with a given name"
   (interactive)
   (let
     ((shell-name (read-string "Shell name: " nil)))
-    (multi-term)
+    (vterm)
     (rename-buffer shell-name)))
-
-(spacemacs/set-leader-keys-for-major-mode 'term-mode "r"
-  (lambda () (interactive) (custom/create-shell-and-rename))
-  "Create named terminal")
 
 ;; Create a new terminal in the current window
 (spacemacs/set-leader-keys "."
-  (lambda () (interactive) (multi-term))
-  "Create terminal")
+  (lambda () (interactive) (vterm)))
 
-;; Create a new terminal in the current window
 (spacemacs/set-leader-keys ">"
-  (lambda () (interactive) (multi-term))
-  "Create named terminal")
+  (lambda () (interactive) (custom/create-shell-and-rename)))
 
-
-;; Requires eterm-256color in dotspacemacs-additional-packages
-;;(setq 'eterm-256color-disable-bold t)
-(add-hook 'term-mode-hook #'eterm-256color-mode)
-
+;; Send ctrl-d
+(evil-define-key 'normal vterm-mode-map "C-d" 'vterm-send-C-d)
+(evil-define-key 'insert vterm-mode-map "C-d" 'vterm-send-C-d)
