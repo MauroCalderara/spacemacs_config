@@ -30,9 +30,19 @@ Following these instructions will get you started::
    # Fetch this repo
    git clone --depth=1 https://github.com/MauroCalderara/spacemacs_config.git \
       ~/.emacs.d/private/mmc
+
+   # You should also install libtool-bin and cmake to get the used terminal
+   # (vterm) working. This here is for Debian based systems:
+   sudo apt-get install libtool-bin cmake
    
    # Create the symlink for the dot-spacemacs config
-   (cd ~ && ln -s .emacs.d/private/mmc/dot_spacemacs .spacemacs)
+   (cd ~ && ln -s .emacs.d/private/mmc/dot_spacemacs.el .spacemacs)
+
+   # Start emacs for the first time (will take a bit of time)
+   emacs
+
+   # After quitting the emacs instance above, use 'em' to start your sessions:
+   em
 
 There are some helper scripts in ``~/.emacs.d/private/mmc/scripts`` that I find
 useful. You might want to add that folder to your path (note that my
