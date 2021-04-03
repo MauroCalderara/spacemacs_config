@@ -76,5 +76,4 @@
   (lambda () (interactive) (custom/create-shell-and-rename)))
 
 ;; Send ctrl-d
-(evil-define-key 'normal vterm-mode-map "C-d" 'vterm-send-C-d)
-(evil-define-key 'insert vterm-mode-map "C-d" 'vterm-send-C-d)
+(evil-define-key '(normal insert) vterm-mode-map (kbd "C-d") 'vterm-send-C-d)
