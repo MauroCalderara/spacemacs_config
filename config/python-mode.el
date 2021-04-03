@@ -32,11 +32,16 @@
 ;; A lot of important settings for python are actually set as variables on
 ;; they python layer (again, see dotspacemacs-configuration-layers).
 
-;;(defun custom-python-mode-hook()
-;;  ;; These cause pipenv to be activated before lsp is started
+(defun custom-python-mode-hook()
+
+;;  ;; These would cause pipenv to be activated before lsp is started
 ;;  (setq python-pipenv-activate t)
 ;;  (setq python-poetry-activate t)
-;;  )
-;;
-;;(add-hook 'python-mode-hook 'custom-python-mode-hook)
+
+  ;; Our projects configure black for 79 column wrapping so we do the same here
+  (setq-default fill-column 79)
+
+)
+
+(add-hook 'python-mode-hook 'custom-python-mode-hook)
 
