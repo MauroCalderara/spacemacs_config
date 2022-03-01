@@ -1,0 +1,6 @@
+#!/bin/sh
+TMP_FILE=$(mktemp .emless.XXXXXXX) || exit 1
+cat - >> "${TMP_FILE}"
+echo 'reading into emacs...'
+emacsclient "${TMP_FILE}"
+rm -f -- "${TMP_FILE}"
