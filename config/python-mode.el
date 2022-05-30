@@ -39,7 +39,7 @@
 ;;  (setq python-poetry-activate t)
 
   ;; Our projects configure black for 79 column wrapping so we do the same here
-  (setq-default fill-column 79)
+  (setq fill-column 79)
 
 )
 
