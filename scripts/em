@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Copyright 2021 Mauro Calderara
 #
@@ -67,4 +67,4 @@ elif [[ ${0##*/} == "emvsp" ]]; then
     ${EMACS_CLIENT} -e "(split-window-right-and-focus)"
 fi
 
-${EMACS_CLIENT} ${EXTRA_ARGS} ${@}
+${EMACS_CLIENT} ${=EXTRA_ARGS} ${@}
