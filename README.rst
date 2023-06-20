@@ -21,7 +21,7 @@ Following these instructions will get you started::
    #
    # To install a downloaded font for your user extract the archive to
    # ~/.local/share/fonts, then run fc-cache -f -v.
-   
+
    # Fetch spacemacs (note that 'develop' is the standard branch at this time so
    # the explicit checkout is not really necessary).
    git clone --depth=1 https://github.com/syl20bnr/spacemacs.git ~/.emacs.d
@@ -32,9 +32,14 @@ Following these instructions will get you started::
       ~/.emacs.d/private/mmc
 
    # You should also install libtool-bin and cmake to get the used terminal
-   # (vterm) working. This here is for Debian based systems:
-   sudo apt-get install libtool-bin cmake
-   
+   # (vterm) working.
+   #
+   # This here is for Debian based systems:
+   #sudo apt-get install libtool-bin cmake
+   #
+   # While this should work on a MacOS with Homebrew installed
+   #brew install gcc cmake libtool
+
    # Create the symlink for the dot-spacemacs config
    (cd ~ && ln -s .emacs.d/private/mmc/dot_spacemacs.el .spacemacs)
 
