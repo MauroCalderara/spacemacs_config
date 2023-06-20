@@ -27,4 +27,5 @@
 ;; * Spacemacs specific settings
 ;;
 
-(global-undo-tree-mode -1)
+(setq undo-tree-history-directory-alist
+      '(("." . "~/.emacs.d/private/mmc/tmp/undo")))
