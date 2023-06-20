@@ -39,14 +39,14 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     ;; better-defaults
+     better-defaults
      c-c++
      dap
      emacs-lisp
      git
      helm
      lsp
-     ;; markdown
+     markdown
      multiple-cursors
      (org :variables
           org-want-todo-bindings t
