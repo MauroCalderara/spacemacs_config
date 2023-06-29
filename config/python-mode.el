@@ -35,14 +35,24 @@
 (defun custom-python-mode-hook()
 
   (setq python-fill-column 100)
-  (setq python-test-runner 'pytest)
   (setq python-formatter 'black)
   (setq python-sort-imports-on-save t)
 
-  ;; $PROJECT_ROOT/.venv is loaded by default through pyvenv. Use one of these
-  ;; in a .direnv.el file if you want to use pipenv or poetry
-  ;;(setq python-pipenv-activate t)
-  ;;(setq python-poetry-activate t)
+  ;; The above are global settings. Project-specifc settings should go into
+  ;; a .dir-locals.el file. Example .dir-locals.el content for python:
+  ;;
+  ;; ((python-mode
+  ;;
+  ;;   (python-backend 'lsp python-lsp-server 'pyright)
+  ;;
+  ;;   (python-test-runner 'pytest)
+  ;;
+  ;;   ;; $PROJECT_ROOT/.venv is loaded by default through pyvenv. Use one of
+  ;;   ;; these in a .direnv.el file if you want to use pipenv or poetry
+  ;;   ;;(python-pipenv-activate t)
+  ;;   ;;(python-poetry-activate t)
+  ;;
+  ;; ))
 
 )
 

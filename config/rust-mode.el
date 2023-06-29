@@ -30,6 +30,16 @@
   (setq lsp-rust-server 'rust-analyzer)
   (setq cargo-process-reload-on-modify t)
 
+  ;; The above are global settings. Project-specifc settings should go into
+  ;; a .dir-locals.el file. Example .dir-locals.el content for rust:
+  ;;
+  ;; ((rust-mode
+  ;;
+  ;;   (rust-backend . lsp)
+  ;;   (lsp-rust-server ')
+  ;;
+  ;; ))
+
 )
 
 (add-hook 'rust-mode-hook 'custom-rust-mode-hook)
