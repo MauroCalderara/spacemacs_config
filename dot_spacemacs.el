@@ -71,7 +71,6 @@ This function should only modify configuration layer settings."
      version-control
      theming
      treemacs
-     ;; TODO Re-enable the ligatures (set to t) when switching to emacs-28
      (unicode-fonts :variables
                     unicode-fonts-enable-ligatures t
                     unicode-fonts-ligature-modes '(c++-mode
