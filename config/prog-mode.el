@@ -26,6 +26,8 @@
 
 
 (defun custom-prog-mode-hook()
+  ;; Default auto wrapping for all programming modes. See specific programming
+  ;; mode hooks (e.g. python-mode.el) for overrides
   (auto-fill-mode)
   (setq fill-column 80))
 
@@ -33,7 +35,10 @@
 
 (setq whitespace-style '(trailing face lines space-before-tab indentation
                                   space-after-tab)
-      whitespace-line-column 80)
+      ;; Setting this to nil means that the value for the fill-column is used.
+      ;; Not sure whether this works still if you only override fill-column in a
+      ;; more specific programming environment (say, python-mode or rust-mode)
+      whitespace-line-column nil)
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
 

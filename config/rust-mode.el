@@ -25,9 +25,11 @@
 ;; config/rust-mode.el - Settings specific to rust mode
 
 (defun custom-rust-mode-hook()
-  ;; cargo fmt wraps at col 99 so we do the same
-  (setq fill-column 99
-        whitespace-line-column 99)
+
+  (setq fill-column 100)
+  (setq lsp-rust-server 'rust-analyzer)
+  (setq cargo-process-reload-on-modify t)
+
 )
 
 (add-hook 'rust-mode-hook 'custom-rust-mode-hook)

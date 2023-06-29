@@ -34,12 +34,15 @@
 
 (defun custom-python-mode-hook()
 
-;;  ;; These would cause pipenv to be activated before lsp is started
-;;  (setq python-pipenv-activate t)
-;;  (setq python-poetry-activate t)
+  (setq python-fill-column 100)
+  (setq python-test-runner 'pytest)
+  (setq python-formatter 'black)
+  (setq python-sort-imports-on-save t)
 
-  ;; Our projects configure black for 79 column wrapping so we do the same here
-  (setq fill-column 79)
+  ;; $PROJECT_ROOT/.venv is loaded by default through pyvenv. Use one of these
+  ;; in a .direnv.el file if you want to use pipenv or poetry
+  ;;(setq python-pipenv-activate t)
+  ;;(setq python-poetry-activate t)
 
 )
 
