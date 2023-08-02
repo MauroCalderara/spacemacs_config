@@ -22,39 +22,15 @@
 ;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;; POSSIBILITY OF SUCH DAMAGE.
 
-;; config/python-mode.el - Settings specific to python-mode
+;; config/elisp-mode.el - Settings specific to elisp-mode
 
 
-;; This assumes that python and lsp are in dotspacemacs-configuration-layers
-;; and that python-language-server[all] is installed (via pip or otherwise).
-;; Also see https://develop.spacemacs.org/layers/+lang/python/README.html
+(defun custom-elisp-mode-hook()
 
-;; A lot of important settings for python are actually set as variables on
-;; they python layer (again, see dotspacemacs-configuration-layers).
-
-(defun custom-python-mode-hook()
-
-  (setq python-fill-column 88) ;; black's default
-  (setq python-formatter 'black)
-  (setq python-sort-imports-on-save t)
-
-  ;; The above are global settings. Project-specifc settings should go into
-  ;; a .dir-locals.el file. Example .dir-locals.el content for python:
-  ;;
-  ;; ((python-mode
-  ;;
-  ;;   (python-backend 'lsp python-lsp-server 'pyright)
-  ;;
-  ;;   (python-test-runner 'pytest)
-  ;;
-  ;;   ;; $PROJECT_ROOT/.venv is loaded by default through pyvenv. Use one of
-  ;;   ;; these in a .direnv.el file if you want to use pipenv or poetry
-  ;;   ;;(python-pipenv-activate t)
-  ;;   ;;(python-poetry-activate t)
-  ;;
-  ;; ))
+  ;; Seems to work for my (limited) elisp coding
+  (auto-fill-mode)
+  (setq fill-column 80)
 
   )
 
-(add-hook 'python-mode-hook 'custom-python-mode-hook)
-
+(add-hook 'elisp-mode-hook 'custom-elisp-mode-hook)

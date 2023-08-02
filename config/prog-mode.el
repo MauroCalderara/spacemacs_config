@@ -1,4 +1,4 @@
-;; Copyright 2021 Mauro Calderara
+;; Copyright 2023 Mauro Calderara
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -27,9 +27,16 @@
 
 (defun custom-prog-mode-hook()
   ;; Default auto wrapping for all programming modes. See specific programming
-  ;; mode hooks (e.g. python-mode.el) for overrides
-  (auto-fill-mode)
-  (setq fill-column 80))
+  ;; mode hooks (e.g. python-mode.el) for overrides.
+
+  ;; These are disabled globally and just here for reference. It seems most
+  ;; modern languages are more generous with line length, so this should be set
+  ;; in the language specific config (e.g. c-c++-mode.el) whenever the style
+  ;; guide of the language restricts line length.
+  ;;(auto-fill-mode)
+  ;;(setq fill-column 80)
+
+  )
 
 (add-hook 'prog-mode-hook 'custom-prog-mode-hook)
 

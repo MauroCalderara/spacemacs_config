@@ -1,4 +1,4 @@
-;; Copyright 2021 Mauro Calderara
+;; Copyright 2023 Mauro Calderara
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -24,10 +24,16 @@
 
 ;; config/c-c++-mode.el - Settings specific (and common) to C and C++ modes
 
-;;(defun custom-c-mode-common-hook()
-;;  )
-;;
-;;(add-hook 'c-mode-common-hook 'custom-c-mode-common-hook)
+(defun custom-c-mode-common-hook()
+
+  ;; Works for both my personal preference for C as well as Google's C++ style
+  ;; guide:
+  (auto-fill-mode)
+  (setq fill-column 80)
+
+  )
+
+(add-hook 'c-mode-common-hook 'custom-c-mode-common-hook)
 
 ;;(defun custom-c-mode-hook()
 ;;  )

@@ -628,6 +628,9 @@ before packages are loaded."
     (load-file "~/.emacs.d/private/mmc/config/auto_create_dir.el"))
 
   ;; Hooks to execute for specific modes
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/elisp-mode.el")
+    (load-file "~/.emacs.d/private/mmc/config/elisp-mode.el"))
+
   (when (file-exists-p "~/.emacs.d/private/mmc/config/c-c++-mode.el")
     (load-file "~/.emacs.d/private/mmc/config/c-c++-mode.el"))
 
