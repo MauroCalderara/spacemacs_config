@@ -35,17 +35,15 @@
   ;; guide of the language restricts line length.
   ;;(auto-fill-mode)
   ;;(setq fill-column 80)
+  (turn-off-auto-fill)
 
   )
 
 (add-hook 'prog-mode-hook 'custom-prog-mode-hook)
 
-(setq whitespace-style '(trailing face lines space-before-tab indentation
+(setq whitespace-style '(trailing face space-before-tab indentation
                                   space-after-tab)
-      ;; Setting this to nil means that the value for the fill-column is used.
-      ;; Not sure whether this works still if you only override fill-column in a
-      ;; more specific programming environment (say, python-mode or rust-mode)
-      whitespace-line-column nil)
+      )
 
 (add-hook 'prog-mode-hook 'whitespace-mode)
 

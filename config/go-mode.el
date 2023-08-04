@@ -26,10 +26,11 @@
 
 (defun custom-go-mode-hook()
 
-  ;; The go style guide has no maximal line length
-  (setq fill-column -1)
-  (setq whitespace-line-column nil)
-  (auto-fill-mode -1)
+  ;; The go style guide has no maximal line length, so we go with the defaults
+  ;; from prog-mode.el
+  ;;(setq fill-column -1)
+  ;;(setq whitespace-line-column nil)
+  ;;(auto-fill-mode -1)
 
   ;; Make use of the helper tools that are available
   (setq gofmt-command "goimports")
