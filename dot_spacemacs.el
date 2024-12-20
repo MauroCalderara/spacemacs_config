@@ -73,6 +73,11 @@ This function should only modify configuration layer settings."
                                                    python-mode
                                                    rust-mode)
                     )
+     search-engine
+     (llm-client :variables
+                 llm-client-enable-gptel t
+                 llm-clientenable-ellama t
+                 )
      )
 
 
@@ -568,7 +573,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -576,7 +581,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -584,7 +589,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -647,6 +652,9 @@ before packages are loaded."
   (when (file-exists-p "~/.emacs.d/private/mmc/config/rust-mode.el")
     (load-file "~/.emacs.d/private/mmc/config/rust-mode.el"))
 
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/search-engine.el")
+    (load-file "~/.emacs.d/private/mmc/config/search-engine.el"))
+
   (when (file-exists-p "~/.emacs.d/private/mmc/config/shell-mode.el")
     (load-file "~/.emacs.d/private/mmc/config/shell-mode.el"))
 
@@ -665,37 +673,37 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(beacon-color "#d33682")
- '(evil-want-Y-yank-to-eol nil)
- '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
- '(frame-background-mode 'dark)
- '(ispell-dictionary nil)
- '(jdee-db-active-breakpoint-face-colors (cons "#073642" "#268bd2"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#073642" "#859900"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#073642" "#56697A"))
- '(objed-cursor-color "#dc322f")
- '(package-selected-packages
-   '(protobuf-mode company-go flycheck-golangci-lint go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor csv-mode magit-svn compat web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path toml-mode ron-mode racer pos-tip flycheck-rust cargo rust-mode yapfify stickyfunc-enhance sphinx-doc pytest pyenv-mode py-isort poetry transient pippel pipenv pyvenv pip-requirements lsp-python-ms lsp-pyright live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode dash-functional cython-mode counsel-gtags counsel swiper ivy company-anaconda company blacken anaconda-mode pythonic ycmd request-deferred deferred xterm-color vterm terminal-here shell-pop org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain multi-term htmlize helm-rtags rtags helm-org-rifle google-c-style gnuplot evil-org eshell-z eshell-prompt-extras esh-help disaster cpp-auto-include ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
- '(pdf-view-midnight-colors (cons "#839496" "#002b36"))
- '(rustic-ansi-faces
-   ["#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"]))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 89)) (:foreground "#8d9fa1" :background "#002732"))))
- '(eterm-256color-bright-black ((t (:inherit eterm-256color-241))))
- '(eterm-256color-bright-blue ((t (:inherit eterm-256color-027))))
- '(eterm-256color-bright-cyan ((t (:inherit eterm-256color-045))))
- '(eterm-256color-bright-green ((t (:inherit eterm-256color-041))))
- '(eterm-256color-bright-magenta ((t (:inherit eterm-256color-169))))
- '(eterm-256color-bright-yellow ((t (:inherit eterm-256color-220)))))
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(ansi-color-faces-vector
+     [default bold shadow italic underline bold bold-italic bold])
+   '(beacon-color "#d33682")
+   '(evil-want-Y-yank-to-eol nil)
+   '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+   '(frame-background-mode 'dark)
+   '(ispell-dictionary nil)
+   '(jdee-db-active-breakpoint-face-colors (cons "#073642" "#268bd2"))
+   '(jdee-db-requested-breakpoint-face-colors (cons "#073642" "#859900"))
+   '(jdee-db-spec-breakpoint-face-colors (cons "#073642" "#56697A"))
+   '(objed-cursor-color "#dc322f")
+   '(package-selected-packages
+     '(protobuf-mode company-go flycheck-golangci-lint go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor csv-mode magit-svn compat web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path toml-mode ron-mode racer pos-tip flycheck-rust cargo rust-mode yapfify stickyfunc-enhance sphinx-doc pytest pyenv-mode py-isort poetry transient pippel pipenv pyvenv pip-requirements lsp-python-ms lsp-pyright live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode dash-functional cython-mode counsel-gtags counsel swiper ivy company-anaconda company blacken anaconda-mode pythonic ycmd request-deferred deferred xterm-color vterm terminal-here shell-pop org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain multi-term htmlize helm-rtags rtags helm-org-rifle google-c-style gnuplot evil-org eshell-z eshell-prompt-extras esh-help disaster cpp-auto-include ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+   '(pdf-view-midnight-colors (cons "#839496" "#002b36"))
+   '(rustic-ansi-faces
+     ["#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"]))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(default ((((class color) (min-colors 89)) (:foreground "#8d9fa1" :background "#002732"))))
+   '(eterm-256color-bright-black ((t (:inherit eterm-256color-241))))
+   '(eterm-256color-bright-blue ((t (:inherit eterm-256color-027))))
+   '(eterm-256color-bright-cyan ((t (:inherit eterm-256color-045))))
+   '(eterm-256color-bright-green ((t (:inherit eterm-256color-041))))
+   '(eterm-256color-bright-magenta ((t (:inherit eterm-256color-169))))
+   '(eterm-256color-bright-yellow ((t (:inherit eterm-256color-220)))))
+  )
