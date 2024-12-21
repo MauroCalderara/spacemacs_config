@@ -46,6 +46,9 @@ Following these instructions will get you started::
    # Start emacs for the first time (will take a bit of time)
    emacs
 
+   # If there are weird symbols in the modeline, consider running
+   SPC SPC nerd-icons-install-fonts
+
    # After quitting the emacs instance above, use 'em' to start your sessions:
    em
 
