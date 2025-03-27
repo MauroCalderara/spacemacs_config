@@ -1,4 +1,4 @@
-;; Copyright 2021 Mauro Calderara
+;; Copyright 2025 Mauro Calderara
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -52,5 +52,19 @@
               (interactive)
               (org-insert-heading)
               (org-metaright)))
-  )
 
+  ;; Admittedly, source blocks are easier in markdown, but this might be too
+  ;; slow + it doesn't work
+  ;;(defun custom/org-electric-src-block ()
+  ;;  "Replace ``` with org src block and position cursor"
+  ;;  (interactive)
+  ;;  (when (looking-back "`" 3)
+  ;;    (delete-backward-char 3)
+  ;;    (insert "#+BEGIN_SRC\n\n#+END_SRC")
+  ;;    (forward-line -1)))
+
+  ;;(add-hook 'org-mode-hook
+  ;;          (lambda ()
+  ;;            (local-set-key (kbd "`") #'custom/org-electric-src-block)))
+
+  )

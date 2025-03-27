@@ -1,4 +1,4 @@
-;; Copyright 2021 Mauro Calderara
+;; Copyright 2025 Mauro Calderara
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -22,49 +22,17 @@
 ;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;; POSSIBILITY OF SUCH DAMAGE.
 
-;; config/shell-and-eterm.el - Settings related to:
+;; config/shell-and-term.el - Settings related to:
 ;;
 ;; * Shell
 ;; * Terminals
 ;;
 
-;; Custom function to open shell in vsplit and bind it to SPC '.
-;; NOTE: This assumes
-;;
-;;   dotspacemacs-configuration-layers '(
-;;     ...
-;;     (shell :variables
-;;       shell-default-position 'right
-;;       shell-default-shell 'vterm)
-;;     ...
-;;   )
-;;
-(defun custom/create-shell-split()
-  (spacemacs/default-pop-shell)
-  (enlarge-window-horizontally (- 80 (window-width))))
-
-(defun custom/create-shell-split-and-rename()
-  "Create pop a new shell with a given name"
-  (interactive)
-  (let
-    ((shell-name (read-string "Shell name: " nil)))
-    (custom/create-shell-split)
-    (rename-buffer shell-name)))
-
-(spacemacs/set-leader-keys "'"
-  (lambda () (interactive) (custom/create-shell-split))
-  "open terminal")
-
-;; We steal that one from spacemacs
-(spacemacs/set-leader-keys "\""
-  (lambda () (interactive) (custom/create-shell-split-and-rename))
-  "open terminal + rename")
-
 (defun custom/create-shell-and-rename ()
   "Create a new term instance with a given name"
   (interactive)
   (let
-    ((shell-name (read-string "Shell name: " nil)))
+      ((shell-name (read-string "Shell name: " nil)))
     (vterm)
     (rename-buffer shell-name)))
 
