@@ -61,7 +61,7 @@ This function should only modify configuration layer settings."
             shell-default-shell 'vterm
             )
      ;; spell-checking
-     ;; syntax-checking
+     ;;syntax-checking
      version-control
      theming
      treemacs
@@ -633,6 +633,9 @@ before packages are loaded."
 
   (when (file-exists-p "~/.emacs.d/private/mmc/config/auto_create_dir.el")
     (load-file "~/.emacs.d/private/mmc/config/auto_create_dir.el"))
+
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/llms.el")
+    (load-file "~/.emacs.d/private/mmc/config/llms.el"))
 
   ;; Hooks to execute for specific modes
   (when (file-exists-p "~/.emacs.d/private/mmc/config/elisp-mode.el")
