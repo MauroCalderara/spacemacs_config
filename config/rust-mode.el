@@ -26,9 +26,17 @@
 
 (defun custom-rust-mode-hook()
 
+  (auto-fill-mode 1)                    ; Enable auto-fill for wrapping
   (setq fill-column 100)
   (setq lsp-rust-server 'rust-analyzer)
   (setq cargo-process-reload-on-modify t)
+
+  ;; Be pleasant on comments
+  (setq comment-auto-fill-only-comments t)
+  (setq comment-multi-line t)
+  (setq comment-start "// ")
+  (setq comment-end "")
+  (setq comment-start-skip "\\(?://[/!]*\\|/\\*+\\)\\s-*") ; MARKER
 
   ;; The above are global settings. Project-specifc settings should go into
   ;; a .dir-locals.el file. Example .dir-locals.el content for rust:
@@ -40,6 +48,6 @@
   ;;
   ;; ))
 
-)
+  )
 
-(add-hook 'rust-mode-hook 'custom-rust-mode-hook)
+(add-hook 'rustic-mode-hook 'custom-rust-mode-hook)
