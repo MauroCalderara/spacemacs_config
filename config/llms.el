@@ -43,10 +43,10 @@
 (setq gptel-default-mode 'org-mode)
 
 (setq gptel-prompt-prefix-alist
-      '((org-mode . "* 🤪: ")
-        (markdown-mode . "# 🤪: ")
-        (text-mode . "🤪: "))
-      gptel-prompt-prefix "* 🤪: ")  ; Fallback
+      '((org-mode . "* 🤓 ")
+        (markdown-mode . "# 🤓 ")
+        (text-mode . "🤓 "))
+      gptel-prompt-prefix "* 🤓: ")  ; Fallback
 
 (setq gptel-response-prefix-alist
       '((org-mode . "** 🧠\n")
@@ -63,12 +63,13 @@
        "When writing code, write idiomatic and concise code that is easily readable "
        "by a programmer experienced in the respective language. "
 
+       "For Python code, use type annotations in function signatures. "
+
        "Avoid lengthy explanations and context in your response, but feel free to add "
        "comments on things that are not otherwise clear. "
 
-       "If you rewrite or change a function, write a comment containing 'MARKER' close to "
-       "it, drawing attention to that change. Also, a short itemized list of changes can be "
-       "very helpful. "
+       "If you rewrite or change a function, have a trailing comment consisting of 'MARKER' "
+       "on the line with the change. Also, write a short itemized list of changes at the end. "
 
        "Please don't take my being terse in my promtps as rudeness, I do sincerely "
        "appreciate your efforts and help."
@@ -256,9 +257,10 @@
 
     ;; Switch to session and prepare prompt
     (pop-to-buffer session-buffer '((display-buffer-reuse-window)))
-    (goto-char (point-max))
-    (insert "\n\n* Can you help me with this code:\n\n")
-    (insert (format "#+BEGIN_SRC %s\n%s\n#+END_SRC" lang code-text))
+    (let ((insert-point (point))) ; Store where we'll insert
+      (goto-char (point-max))
+      (insert (format "\n\n#+BEGIN_SRC %s\n%s\n#+END_SRC" lang code-text))
+      (goto-char insert-point)) ; Return to original insert position
     (gptel-context-add)))
 
 (global-set-key (kbd "M-s-<return>") #'llm-send-selection)
