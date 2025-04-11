@@ -44,6 +44,7 @@ This function should only modify configuration layer settings."
      auto-completion
      better-defaults
      c-c++
+     cmake
      dap
      emacs-lisp
      git
@@ -694,7 +695,58 @@ This function is called at the very end of Spacemacs initialization."
    '(jdee-db-spec-breakpoint-face-colors (cons "#073642" "#56697A"))
    '(objed-cursor-color "#dc322f")
    '(package-selected-packages
-     '(protobuf-mode company-go flycheck-golangci-lint go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor csv-mode magit-svn compat web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode simple-httpd helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path toml-mode ron-mode racer pos-tip flycheck-rust cargo rust-mode yapfify stickyfunc-enhance sphinx-doc pytest pyenv-mode py-isort poetry transient pippel pipenv pyvenv pip-requirements lsp-python-ms lsp-pyright live-py-mode importmagic epc ctable concurrent helm-pydoc helm-gtags helm-cscope xcscope ggtags dap-mode lsp-treemacs bui lsp-mode markdown-mode dash-functional cython-mode counsel-gtags counsel swiper ivy company-anaconda company blacken anaconda-mode pythonic ycmd request-deferred deferred xterm-color vterm terminal-here shell-pop org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain multi-term htmlize helm-rtags rtags helm-org-rifle google-c-style gnuplot evil-org eshell-z eshell-prompt-extras esh-help disaster cpp-auto-include ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+     '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
+                          anaconda-mode auto-compile auto-highlight-symbol blacken
+                          bui cargo centered-cursor-mode clean-aindent-mode
+                          column-enforce-mode company company-anaconda company-go
+                          company-web compat concurrent counsel counsel-css
+                          counsel-gtags cpp-auto-include csv-mode ctable
+                          cython-mode dap-mode dash-functional deferred
+                          define-word devdocs diminish dired-quick-sort disaster
+                          dotenv-mode dumb-jump editorconfig elisp-slime-nav
+                          emmet-mode emr epc esh-help eshell-prompt-extras
+                          eshell-z eval-sexp-fu evil-anzu evil-args
+                          evil-cleverparens evil-collection evil-easymotion
+                          evil-ediff evil-escape evil-exchange evil-goggles
+                          evil-iedit-state evil-indent-plus evil-lion
+                          evil-lisp-state evil-matchit evil-mc evil-nerd-commenter
+                          evil-numbers evil-org evil-surround evil-textobj-line
+                          evil-tutor evil-unimpaired evil-visual-mark-mode
+                          evil-visualstar expand-region eyebrowse fancy-battery
+                          flx-ido flycheck-elsa flycheck-golangci-lint
+                          flycheck-package flycheck-rust font-lock+ ggtags gntp
+                          gnuplot go-eldoc go-fill-struct go-gen-test go-guru
+                          go-impl go-mode go-rename go-tag godoctor golden-ratio
+                          google-c-style google-translate haml-mode helm-ag
+                          helm-cscope helm-css-scss helm-descbinds helm-flx
+                          helm-gtags helm-ls-git helm-make helm-mode-manager
+                          helm-org helm-org-rifle helm-projectile helm-purpose
+                          helm-pydoc helm-rtags helm-swoop helm-themes helm-xref
+                          highlight-indentation highlight-numbers
+                          highlight-parentheses hl-todo htmlize hungry-delete
+                          hybrid-mode impatient-mode importmagic indent-guide ivy
+                          link-hint live-py-mode llama log4e lorem-ipsum lsp-mode
+                          lsp-pyright lsp-python-ms lsp-treemacs macrostep
+                          magit-section magit-svn markdown-mode move-text
+                          multi-term nameless open-junk-file org-brain
+                          org-category-capture org-cliplink org-download org-mime
+                          org-pomodoro org-present org-projectile org-rich-yank
+                          org-superstar overseer paradox password-generator
+                          pcre2el pip-requirements pipenv pippel poetry popwin
+                          pos-tip prettier-js protobuf-mode pug-mode py-isort
+                          pyenv-mode pytest pythonic pyvenv racer
+                          rainbow-delimiters request request-deferred
+                          restart-emacs ron-mode rtags rust-mode sass-mode
+                          scss-mode shell-pop simple-httpd slim-mode
+                          spaceline-all-the-icons sphinx-doc stickyfunc-enhance
+                          string-inflection swiper symbol-overlay symon tagedit
+                          terminal-here toc-org toml-mode transient treemacs-evil
+                          treemacs-icons-dired treemacs-persp treemacs-projectile
+                          undo-tree use-package uuidgen vi-tilde-fringe
+                          volatile-highlights vterm web-beautify
+                          web-completion-data web-mode which-key winum
+                          writeroom-mode ws-butler xcscope xterm-color yapfify
+                          ycmd))
    '(pdf-view-midnight-colors (cons "#839496" "#002b36"))
    '(rustic-ansi-faces
      ["#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"]))
