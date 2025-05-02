@@ -50,5 +50,5 @@
     (kill-buffer-and-window))
   "Save and kill buffer and close window")
 
-(setq scroll-conservatively t)
+(setq scroll-conservatively 101)
 (setq scroll-margin 5)
