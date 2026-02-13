@@ -698,6 +698,7 @@ This function is called at the very end of Spacemacs initialization."
    '(jdee-db-requested-breakpoint-face-colors (cons "#073642" "#859900"))
    '(jdee-db-spec-breakpoint-face-colors (cons "#073642" "#56697A"))
    '(objed-cursor-color "#dc322f")
+   '(org-export-backends '(ascii html latex md))
    '(package-selected-packages
      '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
                           anaconda-mode auto-compile auto-highlight-symbol blacken
