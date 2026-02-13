@@ -44,6 +44,7 @@ This function should only modify configuration layer settings."
      auto-completion
      better-defaults
      c-c++
+     claude-code
      cmake
      dap
      emacs-lisp
