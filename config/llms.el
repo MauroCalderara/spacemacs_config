@@ -32,9 +32,9 @@
 
 ;; Set the default model
 (setq
- gptel-model 'claude-3-5-sonnet-20241022
+ gptel-model 'claude-4-5-sonnet
  gptel-backend (
-                gptel-make-anthropic "Claude 3.5 Sonnet"
+                gptel-make-anthropic "Claude 4.5 Sonnet"
                 :stream t
                 :key (llm-read-api-key-from-file "~/.llms/api_keys/anthropic")
                 ))
@@ -46,13 +46,13 @@
       '((org-mode . "* 🤓 ")
         (markdown-mode . "# 🤓 ")
         (text-mode . "🤓 "))
-      gptel-prompt-prefix "* 🤓: ")  ; Fallback
+      gptel-prompt-prefix "* 🤓 ")  ; Fallback
 
 (setq gptel-response-prefix-alist
-      '((org-mode . "** 🧠\n")
-        (markdown-mode . "## 🧠\n")
-        (text-mode . "🧠\n"))
-      gptel-response-prefix "** 🧠\n")  ; Fallback
+      '((org-mode . "** 🧠 ")
+        (markdown-mode . "## 🧠 ")
+        (text-mode . "🧠 "))
+      gptel-response-prefix "** 🧠 ")  ; Fallback
 
 (setq gptel-system
       (concat
