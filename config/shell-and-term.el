@@ -28,6 +28,8 @@
 ;; * Terminals
 ;;
 
+(setq vterm-max-scrollback 10000)
+
 (defun custom/create-shell-and-rename ()
   "Create a new term instance with a given name"
   (interactive)
