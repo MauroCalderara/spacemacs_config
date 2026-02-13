@@ -43,5 +43,8 @@
 (spacemacs/set-leader-keys ">"
   (lambda () (interactive) (custom/create-shell-and-rename)))
 
-;; Send ctrl-d
-(evil-define-key '(normal insert) vterm-mode-map (kbd "C-d") 'vterm-send-C-d)
+(with-eval-after-load 'vterm
+  ;; Send ctrl-d through to the shell
+  (evil-define-key '(normal insert) vterm-mode-map (kbd "C-d") 'vterm-send-C-d)
+  ;; For "inner escape" we use key-chord so it behaves the same as "fd"
+  (key-chord-define vterm-mode-map "jk" #'vterm-send-escape))
