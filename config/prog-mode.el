@@ -24,6 +24,9 @@
 
 ;; config/prog-mode.el - Settings common to all programming modes
 
+;; By default, fold everything level 2 and higher
+(defun close-folds-from-level-2 ()
+  (evil-fold-level 2))
 
 (defun custom-prog-mode-hook()
   ;; Default auto wrapping for all programming modes. See specific programming
@@ -39,7 +42,7 @@
 
   )
 
-(add-hook 'prog-mode-hook 'custom-prog-mode-hook)
+(add-hook 'prog-mode-hook 'custom-prog-mode-hook 'close-folds-from-level-2)
 
 (setq whitespace-style '(trailing face space-before-tab indentation
                                   space-after-tab)
