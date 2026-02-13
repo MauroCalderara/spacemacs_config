@@ -90,7 +90,8 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(switch-window
+   dotspacemacs-additional-packages '(key-chord
+                                      switch-window
                                       vdiff
                                       vdiff-magit)
 
@@ -601,11 +602,14 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; We use key-chord in vterm mode, but it is a global minor mode, so we
+  ;; activate it here
+  (key-chord-mode 1)
+
   ;; User specific configuration, if it exists, goes first. The file below is
   ;; not tracked in git.
   (when (file-exists-p "~/.emacs.d/private/mmc/config/local.el")
     (load-file "~/.emacs.d/private/mmc/config/local.el"))
-
 
   (when (file-exists-p "~/.emacs.d/private/mmc/config/spacemacs_related.el")
     (load-file "~/.emacs.d/private/mmc/config/spacemacs_related.el"))
