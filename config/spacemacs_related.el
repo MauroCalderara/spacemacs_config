@@ -1,4 +1,4 @@
-;; Copyright 2021 Mauro Calderara
+;; Copyright 2021 Mauro Calderara  -*- lexical-binding: t; -*-
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,14 @@
 ;;
 ;; * Spacemacs specific settings
 ;;
+
+(defun spacemacs/write-and-delete-buffer()
+  "Save current buffer and kill it (keeping the window)"
+  (interactive)
+  (when (and buffer-file-name (buffer-modified-p)) (save-buffer))
+  (kill-current-buffer))
+
+(evil-ex-define-cmd "wd" #'spacemacs/write-and-delete-buffer)
 
 (setq undo-tree-history-directory-alist
       '(("." . "~/.emacs.d/private/mmc/tmp/undo")))

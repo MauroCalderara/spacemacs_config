@@ -1,4 +1,4 @@
-;; Copyright 2023 Mauro Calderara
+;; Copyright 2023 Mauro Calderara  -*- lexical-binding: t; -*-
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -43,6 +43,6 @@
   ;;   (setq go-tab-width 4)
   ;; ))
 
-)
+  )
 
 (add-hook 'go-mode-hook 'custom-go-mode-hook)
