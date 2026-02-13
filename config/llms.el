@@ -105,9 +105,9 @@
   (goto-char (point-max))
   (gptel-send))
 
-(define-key gptel-mode-map (kbd "s-<return>") #'llm-send)
 
 (add-hook 'gptel-mode-hook (lambda()
+                             (define-key gptel-mode-map (kbd "s-<return>") #'llm-send)
                              ;; Don't break prompt lines automatically
                              (visual-line-mode 1)
                              (setq-local markdown-header-scaling t)
