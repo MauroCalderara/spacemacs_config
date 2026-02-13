@@ -38,6 +38,10 @@
   (setq org-hide-leading-stars nil)
   (setq org-superstar-leading-bullet ?\s)
 
+  ;; Visually align the paragraphs with the corresponding header (doesn't
+  ;; insert actual whitespace)
+  (setq org-startup-indented t)
+
   ;; Insert (empty) child
   (bind-key "M-o"
             (lambda ()
@@ -52,19 +56,5 @@
               (interactive)
               (org-insert-heading)
               (org-metaright)))
-
-  ;; Admittedly, source blocks are easier in markdown, but this might be too
-  ;; slow + it doesn't work
-  ;;(defun custom/org-electric-src-block ()
-  ;;  "Replace ``` with org src block and position cursor"
-  ;;  (interactive)
-  ;;  (when (looking-back "`" 3)
-  ;;    (delete-backward-char 3)
-  ;;    (insert "#+BEGIN_SRC\n\n#+END_SRC")
-  ;;    (forward-line -1)))
-
-  ;;(add-hook 'org-mode-hook
-  ;;          (lambda ()
-  ;;            (local-set-key (kbd "`") #'custom/org-electric-src-block)))
 
   )
