@@ -1,4 +1,4 @@
-;; Copyright 2025 Mauro Calderara  -*- lexical-binding: t; -*-
+;; Copyright 2026 Mauro Calderara  -*- lexical-binding: t; -*-
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -22,39 +22,14 @@
 ;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;; POSSIBILITY OF SUCH DAMAGE.
 
-;; config/org-mode.el - Settings related to:
-;;
-;; * Org mode :)
-;;
+;; config/cyborg.el - Settings related to cyborg
 
-;; Since org is loaded lazily we set these only after org mode is loaded
-(with-eval-after-load 'org
+;; Only try load the cyborg code review plugin if it is available (in my
+;; standard location, other users might have to change the path)
+(defvar cyborg-plugin-directory
+  (expand-file-name "~/projects.d/cyborg/main/dist/emacs-plugin")
+  "Directory containing cyborg Emacs plugins.")
 
-  ;; ToDo keywords
-  (setq org-todo-keywords
-        '((sequence "TODO" "IN PROGRESS" "BLOCKED" "|" "DONE" "RECURRING")))
-
-  ;; Disable leading stars in orgmode
-  (setq org-hide-leading-stars nil)
-  (setq org-superstar-leading-bullet ?\s)
-
-  ;; Visually align the paragraphs with the corresponding header (doesn't
-  ;; insert actual whitespace)
-  (setq org-startup-indented t)
-
-  ;; Insert (empty) child
-  (bind-key "M-o"
-            (lambda ()
-              (interactive)
-              (move-end-of-line nil)
-              (org-insert-heading)
-              (org-metaright)))
-
-  ;; Insert child at position
-  (bind-key "M-i"
-            (lambda ()
-              (interactive)
-              (org-insert-heading)
-              (org-metaright)))
-
-  )
+(when (file-directory-p cyborg-plugin-directory)
+  (add-to-list 'load-path cyborg-plugin-directory)
+  (require 'cyborg-review))

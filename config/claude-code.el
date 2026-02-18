@@ -1,4 +1,4 @@
-;; Copyright 2025 Mauro Calderara  -*- lexical-binding: t; -*-
+;; Copyright 2026 Mauro Calderara  -*- lexical-binding: t; -*-
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -22,39 +22,9 @@
 ;; ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ;; POSSIBILITY OF SUCH DAMAGE.
 
-;; config/org-mode.el - Settings related to:
-;;
-;; * Org mode :)
-;;
+;; config/claude-code.el - Settings for Claude Code IDE integration
 
-;; Since org is loaded lazily we set these only after org mode is loaded
-(with-eval-after-load 'org
-
-  ;; ToDo keywords
-  (setq org-todo-keywords
-        '((sequence "TODO" "IN PROGRESS" "BLOCKED" "|" "DONE" "RECURRING")))
-
-  ;; Disable leading stars in orgmode
-  (setq org-hide-leading-stars nil)
-  (setq org-superstar-leading-bullet ?\s)
-
-  ;; Visually align the paragraphs with the corresponding header (doesn't
-  ;; insert actual whitespace)
-  (setq org-startup-indented t)
-
-  ;; Insert (empty) child
-  (bind-key "M-o"
-            (lambda ()
-              (interactive)
-              (move-end-of-line nil)
-              (org-insert-heading)
-              (org-metaright)))
-
-  ;; Insert child at position
-  (bind-key "M-i"
-            (lambda ()
-              (interactive)
-              (org-insert-heading)
-              (org-metaright)))
-
-  )
+;; Register Emacs MCP tools (xref, imenu, tree-sitter, project-info) so
+;; they are available to Claude Code sessions started from Emacs.
+(when (fboundp 'claude-code-ide-emacs-tools-setup)
+  (claude-code-ide-emacs-tools-setup))

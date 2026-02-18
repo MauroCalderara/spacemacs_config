@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(protobuf
+   '(javascript
+     protobuf
      go
      csv
      html
@@ -619,6 +620,12 @@ before packages are loaded."
   (when (file-exists-p "~/.emacs.d/private/mmc/config/buffers.el")
     (load-file "~/.emacs.d/private/mmc/config/buffers.el"))
 
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/cyborg.el")
+    (load-file "~/.emacs.d/private/mmc/config/cyborg.el"))
+
+  (when (file-exists-p "~/.emacs.d/private/mmc/config/claude-code.el")
+    (load-file "~/.emacs.d/private/mmc/config/claude-code.el"))
+
   (when (file-exists-p "~/.emacs.d/private/mmc/config/git.el")
     (load-file "~/.emacs.d/private/mmc/config/git.el"))
 
@@ -703,18 +710,18 @@ This function is called at the very end of Spacemacs initialization."
    '(package-selected-packages
      '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
                           anaconda-mode auto-compile auto-highlight-symbol blacken
-                          bui cargo centered-cursor-mode clean-aindent-mode
-                          column-enforce-mode company company-anaconda company-go
-                          company-web compat concurrent counsel counsel-css
-                          counsel-gtags cpp-auto-include csv-mode ctable
-                          cython-mode dap-mode dash-functional deferred
-                          define-word devdocs diminish dired-quick-sort disaster
-                          dotenv-mode dumb-jump editorconfig elisp-slime-nav
-                          emmet-mode emr epc esh-help eshell-prompt-extras
-                          eshell-z eval-sexp-fu evil-anzu evil-args
-                          evil-cleverparens evil-collection evil-easymotion
-                          evil-ediff evil-escape evil-exchange evil-goggles
-                          evil-iedit-state evil-indent-plus evil-lion
+                          bui cargo centered-cursor-mode claude-code-ide
+                          clean-aindent-mode column-enforce-mode company
+                          company-anaconda company-go company-web compat
+                          concurrent counsel counsel-css counsel-gtags
+                          cpp-auto-include csv-mode ctable cython-mode dap-mode
+                          dash-functional deferred define-word devdocs diminish
+                          dired-quick-sort disaster dotenv-mode dumb-jump
+                          editorconfig elisp-slime-nav emmet-mode emr epc esh-help
+                          eshell-prompt-extras eshell-z eval-sexp-fu evil-anzu
+                          evil-args evil-cleverparens evil-collection
+                          evil-easymotion evil-ediff evil-escape evil-exchange
+                          evil-goggles evil-iedit-state evil-indent-plus evil-lion
                           evil-lisp-state evil-matchit evil-mc evil-nerd-commenter
                           evil-numbers evil-org evil-surround evil-textobj-line
                           evil-tutor evil-unimpaired evil-visual-mark-mode
@@ -723,18 +730,21 @@ This function is called at the very end of Spacemacs initialization."
                           flycheck-package flycheck-rust font-lock+ ggtags gntp
                           gnuplot go-eldoc go-fill-struct go-gen-test go-guru
                           go-impl go-mode go-rename go-tag godoctor golden-ratio
-                          google-c-style google-translate haml-mode helm-ag
+                          google-c-style google-translate grizzl haml-mode helm-ag
                           helm-cscope helm-css-scss helm-descbinds helm-flx
                           helm-gtags helm-ls-git helm-make helm-mode-manager
                           helm-org helm-org-rifle helm-projectile helm-purpose
                           helm-pydoc helm-rtags helm-swoop helm-themes helm-xref
                           highlight-indentation highlight-numbers
                           highlight-parentheses hl-todo htmlize hungry-delete
-                          hybrid-mode impatient-mode importmagic indent-guide ivy
-                          link-hint live-py-mode llama log4e lorem-ipsum lsp-mode
-                          lsp-pyright lsp-python-ms lsp-treemacs macrostep
-                          magit-section magit-svn markdown-mode move-text
-                          multi-term nameless open-junk-file org-brain
+                          hybrid-mode impatient-mode import-js importmagic
+                          indent-guide ivy js-doc js2-mode js2-refactor json-mode
+                          json-navigator json-reformat json-snatcher key-chord
+                          link-hint live-py-mode livid-mode llama log4e
+                          lorem-ipsum lsp-mode lsp-pyright lsp-python-ms
+                          lsp-treemacs macrostep magit-section magit-svn
+                          markdown-mode move-text multi-term multiple-cursors
+                          nameless nodejs-repl npm-mode open-junk-file org-brain
                           org-category-capture org-cliplink org-download org-mime
                           org-pomodoro org-present org-projectile org-rich-yank
                           org-superstar overseer paradox password-generator
@@ -743,16 +753,16 @@ This function is called at the very end of Spacemacs initialization."
                           pyenv-mode pytest pythonic pyvenv racer
                           rainbow-delimiters request request-deferred
                           restart-emacs ron-mode rtags rust-mode sass-mode
-                          scss-mode shell-pop simple-httpd slim-mode
+                          scss-mode shell-pop simple-httpd skewer-mode slim-mode
                           spaceline-all-the-icons sphinx-doc stickyfunc-enhance
                           string-inflection swiper symbol-overlay symon tagedit
-                          terminal-here toc-org toml-mode transient treemacs-evil
-                          treemacs-icons-dired treemacs-persp treemacs-projectile
-                          undo-tree use-package uuidgen vi-tilde-fringe
-                          volatile-highlights vterm web-beautify
-                          web-completion-data web-mode which-key winum
-                          writeroom-mode ws-butler xcscope xterm-color yapfify
-                          ycmd))
+                          terminal-here tern toc-org toml-mode transient
+                          treemacs-evil treemacs-icons-dired treemacs-persp
+                          treemacs-projectile undo-tree use-package uuidgen
+                          vi-tilde-fringe volatile-highlights vterm web-beautify
+                          web-completion-data web-mode web-server websocket
+                          which-key winum writeroom-mode ws-butler xcscope
+                          xterm-color yapfify ycmd))
    '(pdf-view-midnight-colors (cons "#839496" "#002b36"))
    '(rustic-ansi-faces
      ["#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"]))
