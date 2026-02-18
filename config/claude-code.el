@@ -28,3 +28,6 @@
 ;; they are available to Claude Code sessions started from Emacs.
 (when (fboundp 'claude-code-ide-emacs-tools-setup)
   (claude-code-ide-emacs-tools-setup))
+
+;; Send selection to the current Claude Code session.
+(global-set-key (kbd "M-<return>") #'claude-code-ide-insert-at-mentioned)

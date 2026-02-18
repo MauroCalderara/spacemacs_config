@@ -263,7 +263,8 @@
       (goto-char insert-point)) ; Return to original insert position
     (gptel-context-add)))
 
-(global-set-key (kbd "M-s-<return>") #'llm-send-selection)
+;; Binding moved to cyborg-review-append (s-M-<return>) in cyborg-review.el
+;; (global-set-key (kbd "M-s-<return>") #'llm-send-selection)
 
 ;; For now gptel doesn't seem to maintain a context per session/gptel buffer,
 ;; otherwise these here might be useful
