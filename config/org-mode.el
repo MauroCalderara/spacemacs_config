@@ -1,4 +1,4 @@
-;; Copyright 2025 Mauro Calderara  -*- lexical-binding: t; -*-
+;; Copyright 2026 Mauro Calderara  -*- lexical-binding: t; -*-
 ;;
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,12 @@
 ;;
 ;; * Org mode :)
 ;;
+
+;; Wrap paragraph text at 100 columns
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local fill-column 100)
+            (auto-fill-mode 1)))
 
 ;; Since org is loaded lazily we set these only after org mode is loaded
 (with-eval-after-load 'org
