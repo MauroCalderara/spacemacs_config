@@ -24,6 +24,36 @@
 
 ;; config/c-c++-mode.el - Settings specific (and common) to C and C++ modes
 
+;; ---------------------------------------------------------------------------
+;; Remote clangd via SSH
+;;
+;; When the buffer-local environment (set via direnv/envrc) contains
+;; LSP_REMOTE_HOST, use the remote-clangd wrapper script instead of a
+;; local clangd.  The wrapper handles SSH multiplexing and passes
+;; --path-mappings to clangd so file URIs are rewritten transparently.
+;;
+;; To activate for a project, add to its .envrc:
+;;   export LSP_REMOTE_HOST=dev@rhel9
+;;   export LSP_REMOTE_ROOT=/home/dev/projects.d/myproject
+;;   export LSP_LOCAL_ROOT="$(pwd)"
+;;   # export LSP_SSH_CONTROL=/path/to/.ssh-control-socket  # optional
+;; ---------------------------------------------------------------------------
+
+(with-eval-after-load 'lsp-mode
+  (let ((script (expand-file-name "~/.emacs.d/private/mmc/scripts/remote-clangd")))
+    (lsp-register-client
+     (make-lsp-client
+      :new-connection (lsp-stdio-connection
+                       (lambda ()
+                         (if (getenv "LSP_REMOTE_HOST")
+                             (list script)
+                           (list (or (executable-find "clangd")
+                                     "clangd")))))
+      :activation-fn (lsp-activate-on "c" "cpp" "objective-c")
+      :major-modes '(c-mode c++-mode objc-mode)
+      :priority 1
+      :server-id 'clangd-auto))))
+
 (defun custom-c-mode-common-hook()
 
   ;; Works for both my personal preference for C as well as Google's C++ style
@@ -34,13 +64,3 @@
   )
 
 (add-hook 'c-mode-common-hook 'custom-c-mode-common-hook)
-
-;;(defun custom-c-mode-hook()
-;;  )
-;;
-;;(add-hook 'c-mode-hook 'custom-c-mode-hook)
-
-;;(defun custom-c++-mode-hook()
-;;  )
-;;
-;;(add-hook 'c++-mode-hook 'custom-c++-mode-hook)
