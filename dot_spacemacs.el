@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript
+   '(yaml
+     javascript
      protobuf
      go
      csv
@@ -81,6 +82,7 @@ This function should only modify configuration layer settings."
                  llm-client-enable-gptel t
                  llm-clientenable-ellama t
                  )
+     yaml
      )
 
 
@@ -92,7 +94,8 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(key-chord
+   dotspacemacs-additional-packages '(envrc
+                                      key-chord
                                       switch-window
                                       vdiff
                                       vdiff-magit)
@@ -604,6 +607,10 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; Buffer-local direnv integration — must be enabled before mode hooks
+  ;; so that LSP and other tools inherit the correct environment.
+  (envrc-global-mode)
+
   ;; We use key-chord in vterm mode, but it is a global minor mode, so we
   ;; activate it here
   (key-chord-mode 1)
@@ -762,7 +769,7 @@ This function is called at the very end of Spacemacs initialization."
                           vi-tilde-fringe volatile-highlights vterm web-beautify
                           web-completion-data web-mode web-server websocket
                           which-key winum writeroom-mode ws-butler xcscope
-                          xterm-color yapfify ycmd))
+                          xterm-color yaml-mode yapfify ycmd))
    '(pdf-view-midnight-colors (cons "#839496" "#002b36"))
    '(rustic-ansi-faces
      ["#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#839496"]))

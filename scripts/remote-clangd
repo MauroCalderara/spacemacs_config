@@ -1,0 +1,55 @@
+#!/bin/sh
+# remote-clangd — Run clangd on a remote host over SSH with path rewriting.
+#
+# Required environment variables:
+#   LSP_REMOTE_HOST   — SSH destination (e.g. dev@rhel9)
+#   LSP_REMOTE_ROOT   — Project root on the remote host
+#   LSP_LOCAL_ROOT    — Project root on the local machine
+#
+# Optional environment variables:
+#   LSP_SSH_CONTROL   — Path to an existing SSH control socket to reuse.
+#                       If unset, a temporary control master is created and
+#                       cleaned up on exit.
+#   LSP_CLANGD_ARGS   — Extra arguments to pass to clangd (space-separated)
+#
+# Copyright 2026 Mauro Calderara — BSD-2-Clause
+
+set -eu
+
+die() { printf '%s\n' "$*" >&2; exit 1; }
+
+# --- Validate environment ---------------------------------------------------
+
+[ -n "${LSP_REMOTE_HOST:-}" ] || die "LSP_REMOTE_HOST is not set"
+[ -n "${LSP_REMOTE_ROOT:-}" ] || die "LSP_REMOTE_ROOT is not set"
+[ -n "${LSP_LOCAL_ROOT:-}"  ] || die "LSP_LOCAL_ROOT is not set"
+
+# --- SSH multiplexing --------------------------------------------------------
+
+cleanup() {
+    if [ -n "${_OWN_CONTROL:-}" ] && [ -e "${_OWN_CONTROL}" ]; then
+        ssh -o ControlPath="${_OWN_CONTROL}" -O exit "${LSP_REMOTE_HOST}" 2>/dev/null || true
+    fi
+}
+trap cleanup EXIT INT TERM
+
+SSH_OPTS="-o BatchMode=yes"
+
+if [ -n "${LSP_SSH_CONTROL:-}" ] && [ -e "${LSP_SSH_CONTROL}" ]; then
+    # Reuse an existing control socket (e.g. from cyborg-sync)
+    SSH_OPTS="${SSH_OPTS} -o ControlPath=${LSP_SSH_CONTROL}"
+else
+    # Create our own control master
+    _OWN_CONTROL="${TMPDIR:-/tmp}/remote-clangd-$$"
+    SSH_OPTS="${SSH_OPTS} -o ControlMaster=auto"
+    SSH_OPTS="${SSH_OPTS} -o ControlPath=${_OWN_CONTROL}"
+    SSH_OPTS="${SSH_OPTS} -o ControlPersist=60"
+fi
+
+# --- Build clangd command ----------------------------------------------------
+
+PATH_MAPPINGS="${LSP_LOCAL_ROOT}=${LSP_REMOTE_ROOT}"
+
+# shellcheck disable=SC2086
+exec ssh ${SSH_OPTS} "${LSP_REMOTE_HOST}" \
+    clangd --path-mappings="${PATH_MAPPINGS}" ${LSP_CLANGD_ARGS:-}
