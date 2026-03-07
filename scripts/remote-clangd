@@ -46,6 +46,13 @@ else
     SSH_OPTS="${SSH_OPTS} -o ControlPersist=60"
 fi
 
+# --- Resolve remote symlinks --------------------------------------------------
+# Resolve symlinks on the remote side so the path matches compile_commands.json.
+# The local path is left as-is — it must match the URIs that the editor sends.
+# shellcheck disable=SC2086
+LSP_REMOTE_ROOT="$(ssh ${SSH_OPTS} "${LSP_REMOTE_HOST}" \
+    realpath "${LSP_REMOTE_ROOT}")"
+
 # --- Build clangd command ----------------------------------------------------
 
 PATH_MAPPINGS="${LSP_LOCAL_ROOT}=${LSP_REMOTE_ROOT}"
