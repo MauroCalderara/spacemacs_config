@@ -86,13 +86,16 @@ horizontal split of the current window and moves focus there."
   ;; For "inner escape" we use key-chord so it behaves the same as "fd"
   (key-chord-define vterm-mode-map "jk" #'vterm-send-escape)
 
-  ;; Enter vterm-copy-mode on normal state, exit on insert state.
-  ;; This stops autoscrolling when not in insert mode.
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (add-hook 'evil-normal-state-entry-hook
-                        #'vterm-copy-mode nil t)
-              (add-hook 'evil-insert-state-entry-hook
-                        (lambda () (when vterm-copy-mode
-                                     (vterm-copy-mode -1)))
-                        nil t))))
+  ;; Pin scroll position in normal state so terminal output doesn't yank
+  ;; the viewport away, but without vterm-copy-mode (which makes the
+  ;; buffer read-only and blocks paste).
+  (defun custom/vterm-pin-scroll-a (orig-fn &rest args)
+    "Around advice for `vterm--filter': preserve window-start in normal state."
+    (let* ((win (get-buffer-window (current-buffer)))
+           (ws (when (and win (evil-normal-state-p))
+                 (window-start win))))
+      (apply orig-fn args)
+      (when ws
+        (set-window-start win ws t))))
+
+  (advice-add 'vterm--filter :around #'custom/vterm-pin-scroll-a))
