@@ -30,14 +30,13 @@
 
 (setq vterm-max-scrollback 10000)
 
-(defvar custom/shell-counter 0
-  "Counter for auto-naming shell buffers s0, s1, s2, ...")
-
 (defun custom/next-shell-name ()
-  "Return the next available shell name (s0, s1, ...)."
-  (let ((name (format "s%d" custom/shell-counter)))
-    (setq custom/shell-counter (1+ custom/shell-counter))
-    name))
+  "Return the lowest available shell name (s0, s1, ...).
+Scans existing buffers and picks the first gap."
+  (let ((i 0))
+    (while (get-buffer (format "s%d" i))
+      (setq i (1+ i)))
+    (format "s%d" i)))
 
 (defun custom/new-shell ()
   "Create a new vterm with an auto-generated name (s0, s1, ...)."
@@ -57,10 +56,7 @@ horizontal split of the current window and moves focus there."
       (save-window-excursion
         (setq buf (vterm "s0"))
         (with-current-buffer buf
-          (rename-buffer "s0" t)))
-      ;; Bump counter past 0 so new-shell starts at s1+
-      (when (< custom/shell-counter 1)
-        (setq custom/shell-counter 1)))
+          (rename-buffer "s0" t))))
     (select-window (split-window-below))
     (switch-to-buffer buf)))
 

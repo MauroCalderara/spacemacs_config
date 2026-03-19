@@ -33,6 +33,12 @@
             (setq-local fill-column 100)
             (auto-fill-mode 1)))
 
+;; Re-enable auto-fill after buffer reverts (e.g. external MCP edits)
+(add-hook 'after-revert-hook
+          (lambda ()
+            (when (derived-mode-p 'org-mode)
+              (auto-fill-mode 1))))
+
 ;; Since org is loaded lazily we set these only after org mode is loaded
 (with-eval-after-load 'org
 
