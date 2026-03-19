@@ -74,11 +74,13 @@
 ;;   }
 ;; ---------------------------------------------------------------------------
 
-(defvar claude-code-ide-interrupting-mode t
-  "When non-nil, Claude Code opens ediff for proposed changes (default).
-When nil, diffs are shown inline in the Claude terminal and a desktop
-notification is sent via a PermissionRequest hook if the Claude window
-is not focused.")
+(defvar claude-code-ide-interrupting-mode nil
+  "When non-nil, Claude Code opens ediff for proposed changes.
+When nil (default), diffs are shown inline in the Claude terminal and a
+desktop notification is sent via a PermissionRequest hook if the Claude
+window is not focused.")
+
+(setq claude-code-ide-use-ide-diff nil)
 
 (defvar claude-code-ide--last-notify-time 0
   "Timestamp of last desktop notification, used for debouncing.")
@@ -144,4 +146,4 @@ meaningful stdout."
            (if claude-code-ide-interrupting-mode
                "ON (ediff)" "OFF (inline + notify)")))
 
-(spacemacs/set-leader-keys "$dm" 'claude-code-ide-toggle-interrupting-mode)
+(spacemacs/set-leader-keys "$dd" 'claude-code-ide-toggle-interrupting-mode)

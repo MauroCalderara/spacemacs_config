@@ -32,7 +32,8 @@
 
 (when (file-directory-p cyborg-plugin-directory)
   (add-to-list 'load-path cyborg-plugin-directory)
-  (require 'cyborg-review))
+  (require 'cyborg-review)
+  (require 'cyborg-implementation-agents))
 
 ;; ---------------------------------------------------------------------------
 ;; Lint rule browser (helm)
