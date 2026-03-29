@@ -146,4 +146,4 @@ meaningful stdout."
            (if claude-code-ide-interrupting-mode
                "ON (ediff)" "OFF (inline + notify)")))
 
-(spacemacs/set-leader-keys "$dd" 'claude-code-ide-toggle-interrupting-mode)
+(spacemacs/set-leader-keys "$dm" 'claude-code-ide-toggle-interrupting-mode)
