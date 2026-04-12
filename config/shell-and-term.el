@@ -82,16 +82,49 @@ horizontal split of the current window and moves focus there."
   ;; For "inner escape" we use key-chord so it behaves the same as "fd"
   (key-chord-define vterm-mode-map "jk" #'vterm-send-escape)
 
-  ;; Pin scroll position in normal state so terminal output doesn't yank
-  ;; the viewport away, but without vterm-copy-mode (which makes the
-  ;; buffer read-only and blocks paste).
-  (defun custom/vterm-pin-scroll-a (orig-fn &rest args)
-    "Around advice for `vterm--filter': preserve window-start in normal state."
-    (let* ((win (get-buffer-window (current-buffer)))
-           (ws (when (and win (evil-normal-state-p))
-                 (window-start win))))
-      (apply orig-fn args)
-      (when ws
-        (set-window-start win ws t))))
+  ;; Pin scroll position in evil normal state so terminal output doesn't
+  ;; yank the viewport away, without resorting to `vterm-copy-mode' (which
+  ;; makes the buffer read-only and blocks paste).
+  ;;
+  ;; We advise `vterm--delayed-redraw' rather than `vterm--filter': the
+  ;; filter only feeds bytes into libvterm's state machine via
+  ;; `vterm--write-input', it does not touch the Emacs buffer.  The actual
+  ;; text rewrite and point movement happen in `vterm--delayed-redraw',
+  ;; which is scheduled from the C module via `vterm--invalidate' (usually
+  ;; through a `vterm-timer-delay' timer; see vterm.el).  Also, in a
+  ;; process filter `(current-buffer)' is whatever happened to be current
+  ;; when the output arrived, not the vterm buffer, so advising the filter
+  ;; and looking up the window from `current-buffer' was a no-op.
+  (defun custom/vterm-pin-scroll-a (orig-fn buffer &rest args)
+    "Around advice for `vterm--delayed-redraw': freeze viewport in normal state.
+Records window-start, window-point, and buffer point as markers before the
+redraw so Emacs redisplay cannot chase new output and yank us to the prompt.
+Markers track any position shifts caused by scrollback trimming during the
+redraw itself."
+    (if (not (and (buffer-live-p buffer)
+                  (with-current-buffer buffer
+                    (and (bound-and-true-p evil-mode)
+                         (evil-normal-state-p)))))
+        (apply orig-fn buffer args)
+      (let ((saved (mapcar
+                    (lambda (w)
+                      (list w
+                            (copy-marker (window-start w))
+                            (copy-marker (window-point w) t)))
+                    (get-buffer-window-list buffer nil t))))
+        (unwind-protect
+            ;; `save-excursion' pins buffer point across the redraw;
+            ;; without it, Emacs redisplay would move window-start to
+            ;; follow point (which vterm yanks to the cursor).
+            (with-current-buffer buffer
+              (save-excursion
+                (apply orig-fn buffer args)))
+          (dolist (entry saved)
+            (pcase-let ((`(,w ,ws ,wp) entry))
+              (when (window-live-p w)
+                (set-window-start w (marker-position ws))
+                (set-window-point w (marker-position wp)))
+              (set-marker ws nil)
+              (set-marker wp nil)))))))
 
-  (advice-add 'vterm--filter :around #'custom/vterm-pin-scroll-a))
+  (advice-add 'vterm--delayed-redraw :around #'custom/vterm-pin-scroll-a))
