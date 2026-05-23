@@ -77,8 +77,27 @@ horizontal split of the current window and moves focus there."
 (spacemacs/set-leader-keys ">" #'custom/create-shell-and-rename)
 
 (with-eval-after-load 'vterm
-  ;; Send ctrl-d through to the shell
-  (evil-define-key '(normal insert) vterm-mode-map (kbd "C-d") 'vterm-send-C-d)
+  ;; Send ctrl-d through to the shell. `vterm-send-C-d' (and the rest of the
+  ;; `vterm-send-<key>' family) was made obsolete in vterm v0.1 in favor of
+  ;; `vterm--self-insert', which forwards `last-command-event' to libvterm.
+  (evil-define-key '(normal insert) vterm-mode-map (kbd "C-d") #'vterm--self-insert)
+  ;; Send ctrl-c through to the shell. vterm puts "C-c" in
+  ;; `vterm-keymap-exceptions' so it normally stays as an Emacs prefix; bind
+  ;; it explicitly so a single C-c interrupts the running process.
+  (evil-define-key '(normal insert) vterm-mode-map (kbd "C-c") #'vterm--self-insert)
+  ;; In insert mode, make C-w a window-management prefix (mirroring evil
+  ;; normal state) so e.g. `C-w h' jumps to the window on the left. `C-w C-w'
+  ;; is rebound to send a literal C-w to the terminal.
+  (defvar custom/vterm-window-map
+    (let ((map (make-sparse-keymap)))
+      (set-keymap-parent map evil-window-map)
+      (define-key map (kbd "C-w") #'vterm--self-insert)
+      map)
+    "Keymap shadowing `C-w' in vterm insert state.
+Inherits from `evil-window-map' so familiar bindings (h/j/k/l, s, v, ...)
+work, but `C-w C-w' sends a literal C-w to the terminal instead of cycling
+windows.")
+  (evil-define-key 'insert vterm-mode-map (kbd "C-w") custom/vterm-window-map)
   ;; For "inner escape" we use key-chord so it behaves the same as "fd"
   (key-chord-define vterm-mode-map "jk" #'vterm-send-escape)
 
@@ -100,11 +119,19 @@ horizontal split of the current window and moves focus there."
 Records window-start, window-point, and buffer point as markers before the
 redraw so Emacs redisplay cannot chase new output and yank us to the prompt.
 Markers track any position shifts caused by scrollback trimming during the
-redraw itself."
+redraw itself.
+
+Only freezes for redraws triggered by background shell output. Lisp-initiated
+vterm operations (e.g. `vterm-yank', `vterm-goto-char') set
+`vterm--redraw-immediately' to t before calling `accept-process-output' to
+synchronously consume the echo; freezing those would desync Emacs point from
+libvterm's cursor and cause symptoms like pasted text appearing in normal
+state and then \"vanishing\" on entry to insert state."
     (if (not (and (buffer-live-p buffer)
                   (with-current-buffer buffer
                     (and (bound-and-true-p evil-mode)
-                         (evil-normal-state-p)))))
+                         (evil-normal-state-p)
+                         (not vterm--redraw-immediately)))))
         (apply orig-fn buffer args)
       (let ((saved (mapcar
                     (lambda (w)
