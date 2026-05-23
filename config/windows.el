@@ -37,3 +37,8 @@
 (setq-default switch-window-shortcut-style 'qwerty)
 (spacemacs/set-leader-keys "ww" 'switch-window)
 
+;; C-S-w in insert state mirrors SPC w (window prefix) without leaving insert.
+;; GUI Emacs only — terminals can't distinguish C-w from C-S-w.
+(define-key evil-insert-state-map (kbd "C-S-w")
+            (lookup-key spacemacs-default-map (kbd "w")))
+
