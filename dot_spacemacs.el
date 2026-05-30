@@ -58,6 +58,7 @@ This function should only modify configuration layer settings."
      (org :variables
           org-want-todo-bindings t
           )
+     outshine
      python
      rust
      (shell :variables
@@ -95,6 +96,7 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(envrc
+                                      just-mode
                                       key-chord
                                       switch-window
                                       vdiff
