@@ -33,6 +33,33 @@
 (global-set-key (kbd "M-<return>") #'claude-code-ide-insert-at-mentioned)
 
 ;; ---------------------------------------------------------------------------
+;; Shorten buffer names from "*claude-code[<dir>]*" to "*cc[<dir>]*".
+;;
+;; Three pieces have to move together:
+;;   1. Override `claude-code-ide-buffer-name-function' so newly-created
+;;      session buffers get the short name.
+;;   2. Override `claude-code-ide--session-buffer-p' (private; hardcoded
+;;      prefix check used in ~4 places, including the focus check below)
+;;      so the package still recognizes the renamed buffers as sessions.
+;;   3. Update the `display-buffer-alist' regex right below to match.
+;; ---------------------------------------------------------------------------
+(defun mmc/claude-code-ide-buffer-name (directory)
+  "Short name for Claude Code session buffers.
+Default uses \"*claude-code[%s]*\"; this returns \"*cc[%s]*\"."
+  (format "*cc[%s]*"
+          (file-name-nondirectory (directory-file-name directory))))
+
+(setq claude-code-ide-buffer-name-function #'mmc/claude-code-ide-buffer-name)
+
+(defun mmc/claude-code-ide--session-buffer-p (buffer)
+  "Recognize BUFFER as a Claude Code session by the short \"*cc[\" prefix."
+  (when-let ((name (if (stringp buffer) buffer (buffer-name buffer))))
+    (string-prefix-p "*cc[" name)))
+
+(advice-add 'claude-code-ide--session-buffer-p
+            :override #'mmc/claude-code-ide--session-buffer-p)
+
+;; ---------------------------------------------------------------------------
 ;; Pin the Claude Code window to the right side.
 ;;
 ;; The package sets side-window parameters only at creation time, so other
@@ -41,7 +68,7 @@
 ;; right side window with a minimum width.
 ;; ---------------------------------------------------------------------------
 (add-to-list 'display-buffer-alist
-             `("\\*claude-code\\[.*\\]\\*"
+             `("\\*cc\\[.*\\]\\*"
                (display-buffer-in-side-window)
                (side . right)
                (slot . 0)
