@@ -130,7 +130,8 @@ state and then \"vanishing\" on entry to insert state."
     (if (not (and (buffer-live-p buffer)
                   (with-current-buffer buffer
                     (and (bound-and-true-p evil-mode)
-                         (evil-normal-state-p)
+                         (or (evil-normal-state-p)
+                             (evil-visual-state-p))
                          (not vterm--redraw-immediately)))))
         (apply orig-fn buffer args)
       (let ((saved (mapcar
